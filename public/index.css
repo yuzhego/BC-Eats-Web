@@ -1,0 +1,36 @@
+.main-header {
+    margin : auto;
+    width : 50%;
+    text-align: center;
+}
+.main-options {
+    display: flex;
+}
+
+.main-options-side {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    border : 1px;
+    border-style: solid;
+    flex: 1;
+    text-align: center;
+    margin: 20px;
+}
+
+.main-subscription {
+    display: flex;
+    height: 300px;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+}
+
+/* .option {
+    flex: 1;
+} */
+
+img {
+    height: 300px;
+    width: 300px;
+}
