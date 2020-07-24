@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/index.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <title>Post</title>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li class="li-padding"><a href="../index.html">Home</a></li>
+                <li class="li-padding"><a href="./feed.html">Feed</a></li>
+                <li class="li-padding"><a href="./newpost.html">New Post</a></li>
+                <li class="li-padding"><a href="./editpost.html">Edit Post</a></li>
+                <li class="li-padding"><a href="./login.html">Login</a></li>    
+            </ul>
+        </nav>
+        <div class="main-header">
+            <h1>Make a New Post</h1>
+        </div>
+
+        <form action="" method="post">
+            <p>Title <input name="title" type="text" ></p>
+            <p>Location <input name="location" type="text" ></p>
+            <p>Available until <input name="available_until" type="datetime-local" ></p>
+            <p>Description <input name="description" type="text" ></p>
+            <p>Image <input name="image" type="file" accept=".jpg"></p>  
+
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html>
