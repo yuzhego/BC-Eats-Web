@@ -9,4 +9,8 @@ app.get('/', (request, response) => {
     response.render('index', {"title": "Facts"});
 });
 
+app.get('/home', (request, response) => {
+    response.render('home');
+});
+
 exports.app = functions.https.onRequest(app)
