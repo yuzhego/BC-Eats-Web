@@ -49,21 +49,15 @@ app.get('/home', (request, response) => {
 app.get('/feed', (request, response) => {
     const posts = db.collection('posts');
     const query = posts.orderBy('title');
-
     query.get()
-        .then(postsList => {
-            postsList.forEach(doc => {
-                const data = doc.data();
-                let text = data.title + '|' + 
-                        data.image + '|' +
-                        data.location + '|' +
-                        data.description;
-                console.log(text);
-              
-            })
-        })  
-        
-        response.render('feed'); 
+        .then(doc => {
+            response.render('feed', { posts: doc } ); 
+        })
+        .catch(err => {
+            console.log("error");
+            console.log(err);
+            response.render('feed');        
+        })       
 });
 
 app.get('/newpost', (request, response) => {

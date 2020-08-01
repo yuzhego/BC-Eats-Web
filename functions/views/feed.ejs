@@ -28,8 +28,13 @@
         <div class="main-header">
             <h1>Food Available Near You</h1>
             <div id="feed">
-                
-                <p>  </p>
+                <% posts.forEach(post => { %>
+                    <h4><%- post.data().title %></h4>
+                    <p>location : <%- post.data().location %></p>
+                    <p>description : <%- post.data().description %></p>
+                    <p>image : <%- post.data().image %></p>
+                <% }); %>
+                  
             </div>
         </div>
     </body>
