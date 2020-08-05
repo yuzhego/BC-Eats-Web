@@ -4,16 +4,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="styles/index.css">
-        <script src="javascripts/newpost.js"></script>
-        <!-- update the version number as needed -->
-        <script defer src="/__/firebase/7.16.1/firebase-app.js"></script>
-        <!-- include only the Firebase features as you need -->
-        <script defer src="/__/firebase/7.16.1/firebase-auth.js"></script>
-        <script defer src="/__/firebase/7.16.1/firebase-firestore.js"></script>
-        <script defer src="/__/firebase/7.16.1/firebase-messaging.js"></script>
-        <script defer src="/__/firebase/7.16.1/firebase-storage.js"></script>
-        <!-- initialize the SDK after all desired features are loaded -->
-        <script defer src="/__/firebase/init.js"></script>
         <title>BC-Eats</title>
     </head>
     <body>
@@ -29,14 +19,14 @@
             <h1>Make a New Post</h1>
         </div>
 
-        <form action="" method="post">
+        <form action="/post" method="post">
             <p>Title <input name="title" type="text" id="title"></p>
             <p>Location <input name="location" type="text" id="location"></p>
             <p>Available until <input name="available_until" type="datetime-local" id="time"></p>
             <p>Description <input name="description" type="text" id="description"></p>
             <p>Image <input name="image" type="file" accept=".jpg" id="image"></p>  
 
-            <input type="submit" onclick="sendPost()" value="Submit">
+            <input type="submit" value="Submit">
         </form>
     </body>
 </html>
