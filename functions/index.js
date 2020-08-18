@@ -12,10 +12,21 @@ const { credential } = require('firebase-admin');
 firebase.initializeApp({
     credential: firebase.credential.cert(config)
 });
+
+const auth = firebase.auth();
 const db = firebase.firestore();
 
 app.get('/', (request, response) => {
-    response.render('index');
+    response.redirect('/login');
+});
+
+app.get('/login', (request, response) => {
+    response.render('login');
+});
+app.post('/login', (request, response) => {
+    
+    response.render('home');
+    
 });
 
 app.get('/home', (request, response) => {
