@@ -12,10 +12,13 @@ const { credential } = require('firebase-admin');
 firebase.initializeApp({
     credential: firebase.credential.cert(config)
 });
+const auth = firebase.auth;
+const auth_ = firebase.auth();
 const db = firebase.firestore();
+var user = null;
 
 app.get('/', (request, response) => {
-    response.render('index');
+    response.render('index', { username: ''});
 });
 
 app.get('/home', (request, response) => {
@@ -56,6 +59,23 @@ app.post('/post', (request, response) => {
         console.error("Error adding document: ", error);
     });
     response.redirect('/feed');
+})
+
+app.get('/login', (request, response) => {
+    auth_.signInWithEmailAndPassword(request.id1, request.pass)
+        .then(result => {
+            user = result.user;
+            console.log('Hello ${user.displayName}');
+        })
+        .catch(console.log)
+    response.redirect('/home');
+    // auth.signInWithEmailAndPassword(request.id1, request.pass)
+    //     .then(result => {
+    //         user = result.user;
+    //         console.log('Hello ${user.displayName}');
+    //     })
+    //     .catch(console.log)
+    // response.redirect('/home');
 })
 
 app.get('/editpost', (request, response) => {
