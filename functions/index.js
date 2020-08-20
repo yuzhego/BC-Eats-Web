@@ -1,89 +1,36 @@
-// Express
-const express = require('express');
-const app = express();
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-// Firebase 
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+// var cookieParser = require('cookie-parser');
+// var logger = require('morgan');
 const functions = require('firebase-functions');
-const firebase = require('firebase-admin');
-const config = require('./serviceAcountKey.json');
-const { credential } = require('firebase-admin');
-firebase.initializeApp({
-    credential: firebase.credential.cert(config)
-});
-const auth = firebase.auth;
-const auth_ = firebase.auth();
-const db = firebase.firestore();
-var user = null;
+var indexRouter = require('./routes/index');
+var app = express();
 
-app.get('/', (request, response) => {
-    response.render('index', { username: ''});
-});
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.get('/home', (request, response) => {
-    response.render('home');
- 
+// app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+// app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/', indexRouter);
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-app.get('/feed', (request, response) => {
-    const posts = db.collection('posts');
-    const query = posts.orderBy('title');
-    query.get()
-        .then(doc => {
-            response.render('feed', { posts: doc } ); 
-        })
-        .catch(err => {
-            console.log("error");
-            console.log(err);
-            response.render('feed');        
-        })
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-app.get('/newpost', (request, response) => {
-    response.render('newpost');
-});
-
-app.post('/post', (request, response) => {
-    var obj = request.body;
-    const post = db.collection('posts').add({
-        title: obj.title,
-        image: "image.jpg",
-        location: obj.location,
-        description: obj.description
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
-    response.redirect('/feed');
-})
-
-app.get('/login', (request, response) => {
-    auth_.signInWithEmailAndPassword(request.id1, request.pass)
-        .then(result => {
-            user = result.user;
-            console.log('Hello ${user.displayName}');
-        })
-        .catch(console.log)
-    response.redirect('/home');
-    // auth.signInWithEmailAndPassword(request.id1, request.pass)
-    //     .then(result => {
-    //         user = result.user;
-    //         console.log('Hello ${user.displayName}');
-    //     })
-    //     .catch(console.log)
-    // response.redirect('/home');
-})
-
-app.get('/editpost', (request, response) => {
-    response.render('editpost');
-});
-
-app.get('/loginoptions', (request, response) => {
-    response.render('loginoptions');
-});
-
-exports.app = functions.https.onRequest(app)
+exports.app = functions.https.onRequest(app);

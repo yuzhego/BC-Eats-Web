@@ -3,20 +3,71 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="styles/index.css">
+        <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
+        <script src="/__/firebase/init.js"></script>
         <title>BC-Eats</title>
+        <script type="text/javascript">
+        
+        function toggleSignIn() {
+            if (firebase.auth().currentUser) {
+                // [START signout]
+                firebase.auth().signOut();
+                // [END signout]
+            } else {
+                var email = document.getElementById('email').value;
+                var password = document.getElementById('password').value;
+                if (email.length < 4) {
+                alert('Please enter an email address.');
+                return;
+                }
+                if (password.length < 4) {
+                alert('Please enter a password.');
+                return;
+                }
+                // Sign in with email and pass.
+                // [START authwithemail]
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // [START_EXCLUDE]
+                if (errorCode === 'auth/wrong-password') {
+                    alert('Wrong password.');
+                } else {
+                    alert(errorMessage);
+                }
+                console.log(error);
+                
+                // [END_EXCLUDE]
+                });
+                // [END authwithemail]
+            }
+        }
+            
+        window.onload = function() {
+            document.getElementById('login').addEventListener('click', toggleSignIn, false);
+        };
+        </script>
     </head>
     <body>
 
-        <form action="/login" method="POST">
+        
+        <form method="POST">
             <label for="email">email</label>
             <input type="text" id="email">
             <label for="password">password</label>
             <input type="text" id="password"> 
             <input type="submit" value="Submit">
         </form>
-        <a href="/loginBC"> BC email Login </a>
 
 
+        <button class="mdl-button mdl-js-button mdl-button--raised" id="login">Sign Up</button>
+
+
+   
     </body>
 </html>
