@@ -1,10 +1,15 @@
 // Express
 const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const app = express();
-const bodyParser = require("body-parser");
+
 app.set('view engine', 'ejs');
 app.set('views', './views');
+app.use(express.json());
+app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 // Firebase 
 const functions = require('firebase-functions');
@@ -20,8 +25,8 @@ const auth = admin.auth();
 const db = admin.firestore();
 var user = null;
 
-
 function createUser(email, password) {
+    var obj = {};
     auth.createUser({
         email: email,
         emailVerified: false,
@@ -31,12 +36,11 @@ function createUser(email, password) {
         disabled: false
     }).then(result => {
                 user = result.user;
-                return true;
     }).catch(
-        console.log()
+        console.log
         // or a list of error message after validation of user
     )
-    return false;
+    return true;
 }
 
 app.get('/', (request, response) => {
@@ -91,13 +95,15 @@ app.get('/signup', (request, response) => {
 })
 
 app.post('/signup', (request, response) => {
-    console.log(request.body);
-    var email = request.body.email;
-    var password = request.body.password;
-    if (createUser(email,password)) {
-        response.redirect('/home');
-    } 
-    var message = "error messages"
+    var email = JSON.parse(request.body.email);
+    var password = JSON.parse(request.body.password);
+    console.log(email);
+    // if (createUser(email,password)) {
+    //     response.redirect('/login');
+    //     //console.log("login page");
+    // } 
+    
+    var message = "error messages";
     response.render('signup', {message: message });
 })
 

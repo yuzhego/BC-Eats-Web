@@ -4,19 +4,40 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <!-- <script src=""></script> -->
         <link rel="stylesheet" href="styles/index.css">
         <title>BC-Eats</title>
     </head>
     <body>
         <% if (locals.message) { %>
             <h2><%= message %></h2>
-        <% } %>
-        <form method="POST">
+        <%} %>
+
+        <div class="container">
             <label for="email">email</label>
             <input type="text" id="email">
             <label for="password">password</label>
             <input type="text" id="password"> 
-            <input type="submit" value="Submit">
-        </form>
+            <button id="sign_up"> Submit </button>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function(){
+                document.getElementById("sign_up").addEventListener('click', function() {
+                    var email = JSON.stringify(document.getElementById('email').value);
+                    var password = JSON.stringify(document.getElementById('password').value);
+                    // $.post('/signup', {email: email, password: password });
+                    $.ajax({
+                        url: '/signup',
+                        timeout: 1000,
+                        data: {
+                            email: email,
+                            password: password
+                        }
+                    });
+                });
+            })
+        </script>
     </body>
 </html>
