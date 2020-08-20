@@ -27,15 +27,10 @@
                 document.getElementById("sign_up").addEventListener('click', function() {
                     var email = JSON.stringify(document.getElementById('email').value);
                     var password = JSON.stringify(document.getElementById('password').value);
-                    // $.post('/signup', {email: email, password: password });
-                    $.ajax({
-                        url: '/signup',
-                        timeout: 1000,
-                        data: {
-                            email: email,
-                            password: password
-                        }
-                    });
+                    // validate email is @bc.edu
+                    
+                    $.post('/signup', {email: email, password: password });
+                    window.location.replace("/login");
                 });
             })
         </script>

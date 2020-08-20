@@ -98,13 +98,16 @@ app.post('/signup', (request, response) => {
     var email = JSON.parse(request.body.email);
     var password = JSON.parse(request.body.password);
     console.log(email);
+    
     // if (createUser(email,password)) {
-    //     response.redirect('/login');
+    //     // response.redirect('/login');
     //     //console.log("login page");
     // } 
+    // var message = "error messages";
+    // response.render('signup', {message: message });
     
-    var message = "error messages";
-    response.render('signup', {message: message });
+    createUser(email,password);
+    response.status(200);
 })
 
 app.post('/login', (request, response) => {
