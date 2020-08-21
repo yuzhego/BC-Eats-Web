@@ -20,7 +20,6 @@ admin.initializeApp({
     credential: admin.credential.cert(config)
 });
 
-
 const auth = admin.auth();
 const db = admin.firestore();
 
