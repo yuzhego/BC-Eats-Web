@@ -9,69 +9,21 @@
         <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
         <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
         <script src="/__/firebase/init.js"></script>
+        <script src="javascripts/auth.js"></script>
         <title>BC-Eats</title>
-        <script type="text/javascript">
-        
-        function toggleSignIn() {
-            if (firebase.auth().currentUser) {
-                // [START signout]
-                firebase.auth().signOut();
-                // [END signout]
-            } else {
-                var email = document.getElementById('email').value;
-                var password = document.getElementById('password').value;
-                if (email.length < 4) {
-                    alert('Please enter an email address.');
-                    return;
-                }
-                    if (password.length < 4) {
-                    alert('Please enter a password.');
-                    return;
-                }
-                // Sign in with email and pass.
-                // [START authwithemail]
-                firebase.auth().signInWithEmailAndPassword(email, password)
-                .then (function () {
-                   console.log(firebase.auth().currentUser);
-                })
-                .catch(function(error) {
-                // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    // [START_EXCLUDE]
-                    if (errorCode === 'auth/wrong-password') {
-                        alert('Wrong password.');
-                    } else {
-                        alert(errorMessage);
-                    }
-                    console.log(error);
-                
-                // [END_EXCLUDE]
-                });
-            }
-        }
-            
-        window.onload = function() {
-            document.getElementById('login').addEventListener('click', toggleSignIn, false);
-            
-        };
-        </script>
     </head>
     <body>
-
-        
-        <form method="POST">
+        <form>
             <label for="email">email</label>
             <input type="text" id="email">
             <label for="password">password</label>
             <input type="text" id="password"> 
             <input type="submit" value="Submit">
         </form>
+        <button id="login">Login</button>
 
-
-        <button class="mdl-button mdl-js-button mdl-button--raised" id="login">Login</button>
-
-
-   
+        <script>
+                document.getElementById('login').addEventListener('click', login, false);
+        </script>
     </body>
 </html>

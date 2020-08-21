@@ -3,31 +3,55 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/index.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles/index.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
         <title>BC-Eats</title>
     </head>
     <body>
-        <nav>
-            <ul>
-                <li class="li-padding"><a href="/home">Home</a></li>
-                <li class="li-padding"><a href="/feed">Feed</a></li>
-                <li class="li-padding"><a href="/newpost">New Post</a></li>
-                <li class="li-padding"><a href="/editpost">Edit Post</a></li> 
-            </ul>
-        </nav>
-        <div class="main-header">
-            <h1>Edit My Post</h1>
-        </div>
+        <header>
+            <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top py-2">
+                <a class="navbar-brand" href="/home">BCEats</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/feed">Feed</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link" href="/newpost">New Post</a>
+                        </li> 
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/editpost">Edit Post</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Logout</a>
+                        </li> 
+                    </ul>
+                </div>
+            </nav>   
+        </header> 
+        <main>
+            <div class="main-header">
+                <h1>Edit My Post</h1>
+            </div>
 
-        <form action="" method="post">
-            <p>Title <input name="title" type="text" ></p>
-            <p>Location <input name="location" type="text" ></p>
-            <p>Available until <input name="available_until" type="datetime-local" ></p>
-            <p>Description <input name="description" type="text" ></p>
-            <p>Image <input name="image" type="file" accept=".jpg"></p>  
+            <form action="" method="post">
+                <p>Title <input name="title" type="text" ></p>
+                <p>Location <input name="location" type="text" ></p>
+                <p>Available until <input name="available_until" type="datetime-local" ></p>
+                <p>Description <input name="description" type="text" ></p>
+                <p>Image <input name="image" type="file" accept=".jpg"></p>  
 
-            <input type="submit" value="Submit">
-        </form>
+                <input type="submit" value="Submit">
+            </form>
+        </main>
     </body>
 </html>
