@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -25,8 +26,17 @@ const auth = admin.auth();
 const db = admin.firestore();
 var user = null;
 
+function generatePassword() {
+    // length >= 6
+    return "XYgaj123";
+}
+
+function emailUserPassword(email, password) {
+    // use nodemailer to send password to user
+}
+
+
 function createUser(email, password) {
-    var obj = {};
     auth.createUser({
         email: email,
         emailVerified: false,
@@ -39,6 +49,7 @@ function createUser(email, password) {
     }).catch(
         console.log
         // or a list of error message after validation of user
+        // Not anymore since user only input email and client code will validate it
     )
     return true;
 }
@@ -106,8 +117,13 @@ app.post('/signup', (request, response) => {
     // var message = "error messages";
     // response.render('signup', {message: message });
     
-    createUser(email,password);
-    response.status(200);
+    
+    if (createUser(email,password)) {
+        var genPassword = generatePassword();
+        emailUserPassword(email, genPassword);
+        response.status(200);
+    };
+    response.status(400);
 })
 
 app.post('/login', (request, response) => {

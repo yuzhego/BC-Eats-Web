@@ -29,7 +29,15 @@
                     var password = JSON.stringify(document.getElementById('password').value);
                     // validate email is @bc.edu
                     
-                    $.post('/signup', {email: email, password: password });
+                    // $.post('/signup', {email: email, password: password });
+                    $.ajax({
+                        url: '/signup',
+                        timeout: 1000,
+                        data: {
+                            email: email,
+                            password: password
+                        }
+                    });
                     window.location.replace("/login");
                 });
             })
