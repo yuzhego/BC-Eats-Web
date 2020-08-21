@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
         <!-- <script src=""></script> -->
+        <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
+        <script src="/__/firebase/init.js"></script>
         <link rel="stylesheet" href="styles/index.css">
         <title>BC-Eats</title>
     </head>
@@ -25,20 +29,40 @@
         <script>
             document.addEventListener('DOMContentLoaded', function(){
                 document.getElementById("sign_up").addEventListener('click', function() {
-                    var email = JSON.stringify(document.getElementById('email').value);
-                    var password = JSON.stringify(document.getElementById('password').value);
+                    var email = document.getElementById('email').value;
+                    var password = document.getElementById('password').value;
                     // validate email is @bc.edu
                     
                     // $.post('/signup', {email: email, password: password });
-                    $.ajax({
-                        url: '/signup',
-                        timeout: 1000,
-                        data: {
-                            email: email,
-                            password: password
+                    // $.ajax({
+                    //     url: '/signup',
+                    //     timeout: 1000,
+                    //     data: {
+                    //         email: email,
+                    //         password: password
+                    //     }
+                    // });
+
+                    // Client SDK
+                    firebase.auth().createUserWithEmailAndPassword(email, password)
+                    .then(function() {
+                        window.location.replace("/login");
+                    })
+                    .catch(function(error) {
+                        // Handle Errors here.
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        // [START_EXCLUDE]
+                        if (errorCode == 'auth/weak-password') {
+                            alert('The password is too weak.');
+                        } else {
+                            alert(errorMessage);
                         }
+                        console.log(error);
+                        // [END_EXCLUDE]
                     });
-                    window.location.replace("/login");
+
+                    
                 });
             })
         </script>

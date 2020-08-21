@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
 const app = express();
 
 app.set('view engine', 'ejs');
@@ -24,35 +23,25 @@ admin.initializeApp({
 
 const auth = admin.auth();
 const db = admin.firestore();
-var user = null;
-
-function generatePassword() {
-    // length >= 6
-    return "XYgaj123";
-}
-
-function emailUserPassword(email, password) {
-    // use nodemailer to send password to user
-}
 
 
-function createUser(email, password) {
-    auth.createUser({
-        email: email,
-        emailVerified: false,
-        // phoneNumber: '+14253652945',
-        password: password,
-        // displayName: 'username',
-        disabled: false
-    }).then(result => {
-                user = result.user;
-    }).catch(
-        console.log
-        // or a list of error message after validation of user
-        // Not anymore since user only input email and client code will validate it
-    )
-    return true;
-}
+// function createUser(email, password) {
+//     auth.createUser({
+//         email: email,
+//         emailVerified: false,
+//         // phoneNumber: '+14253652945',
+//         password: password,
+//         // displayName: 'username',
+//         disabled: false
+//     }).then(result => {
+//                 user = result.user;
+//     }).catch(
+//         console.log
+//         // or a list of error message after validation of user
+//         // Not anymore since user only input email and client code will validate it
+//     )
+//     return true;
+// }
 
 app.get('/', (request, response) => {
     response.render('index', { username: 'Temp'});
@@ -106,24 +95,24 @@ app.get('/signup', (request, response) => {
 })
 
 app.post('/signup', (request, response) => {
-    var email = JSON.parse(request.body.email);
-    var password = JSON.parse(request.body.password);
-    console.log(email);
+    // var email = JSON.parse(request.body.email);
+    // var password = JSON.parse(request.body.password);
+    // console.log(email);
+    
+    // // if (createUser(email,password)) {
+    // //     // response.redirect('/login');
+    // //     //console.log("login page");
+    // // } 
+    // // var message = "error messages";
+    // // response.render('signup', {message: message });
+    
     
     // if (createUser(email,password)) {
-    //     // response.redirect('/login');
-    //     //console.log("login page");
-    // } 
-    // var message = "error messages";
-    // response.render('signup', {message: message });
-    
-    
-    if (createUser(email,password)) {
-        var genPassword = generatePassword();
-        emailUserPassword(email, genPassword);
-        response.status(200);
-    };
-    response.status(400);
+    //     var genPassword = generatePassword();
+    //     emailUserPassword(email, genPassword);
+    //     response.status(200);
+    // };
+    response.status(200);
 })
 
 app.post('/login', (request, response) => {
