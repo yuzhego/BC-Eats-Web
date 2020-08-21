@@ -10,69 +10,22 @@
         <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
         <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
         <script src="/__/firebase/init.js"></script>
+        <script src="javascripts/auth.js"></script>
         <link rel="stylesheet" href="styles/index.css">
         <title>BC-Eats</title>
     </head>
     <body>
-        <% if (locals.message) { %>
+        <!-- <% if (locals.message) { %>
             <h2><%= message %></h2>
-        <%} %>
-
+        <%} %> -->
         <div class="container">
             <label for="email">email</label>
             <input type="text" id="email">
-            <label for="password">password</label>
-            <input type="text" id="password"> 
+            <label for="password1">password</label>
+            <input type="text" id="password1"> 
+            <label for="password2">confirm password</label>
+            <input type="text" id="password2"> 
             <button id="sign_up"> Submit </button>
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function(){
-                document.getElementById("sign_up").addEventListener('click', function() {
-                    var email = document.getElementById('email').value;
-                    var password = document.getElementById('password').value;
-                    // validate email is @bc.edu
-                    
-                    // $.post('/signup', {email: email, password: password });
-                    // $.ajax({
-                    //     url: '/signup',
-                    //     timeout: 1000,
-                    //     data: {
-                    //         email: email,
-                    //         password: password
-                    //     }
-                    // });
-
-                    // Client SDK
-                    firebase.auth().createUserWithEmailAndPassword(email, password)
-                    .then(function() {
-                        var user = firebase.auth().currentUser;
-                        user.sendEmailVerification()
-                        .then(function() {
-                            window.location.replace("/login");
-                        })
-                        .catch(function(error) {
-                            alert(error.message);
-                            console.log(error);
-                        });
-                    })
-                    .catch(function(error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        // [START_EXCLUDE]
-                        if (errorCode == 'auth/weak-password') {
-                            alert('The password is too weak.');
-                        } else {
-                            alert(errorMessage);
-                        }
-                        console.log(error);
-                        // [END_EXCLUDE]
-                    });
-
-                    
-                });
-            })
-        </script>
     </body>
 </html>
