@@ -27,47 +27,64 @@ var currentUser = null;
 app.get('/', (request, response) => {
     if(currentUser) {
         response.redirect('/home');
+    } else {
+        response.redirect('/login');
     }
-    response.redirect('/login');
 });
 
 app.get('/home', (request, response) => {
-    response.render('home');
+    if (currentUser) {
+        response.render('home');
+    } else {
+        response.redirect('/login');
+    }
 });
 
 app.get('/feed', (request, response) => {
-    const posts = db.collection('posts');
-    const query = posts.orderBy('title');
-    query.get()
-        .then(doc => {
-            response.render('feed', { posts: doc } ); 
-        })
-        .catch(err => {
-            console.log("error");
-            console.log(err);
-            response.render('feed');        
-        })
+    if(currentUser) {
+        const posts = db.collection('posts');
+        const query = posts.orderBy('title');
+        query.get()
+            .then(doc => {
+                response.render('feed', { posts: doc } ); 
+            })
+            .catch(err => {
+                console.log("error");
+                console.log(err);
+                response.render('feed');        
+            });
+    } else {
+        response.redirect('/login');
+    }
 });
 
 app.get('/newpost', (request, response) => {
-    response.render('newpost');
+    if(currentUser) {
+        response.render('newpost');
+    } else {
+        response.redirect('/login');
+    }
 });
 
 app.post('/post', (request, response) => {
-    var obj = request.body;
-    const post = db.collection('posts').add({
-        title: obj.title,
-        image: "image.jpg",
-        location: obj.location,
-        description: obj.description
-    })
-    .then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
-    })
-    .catch(function(error) {
-        console.error("Error adding document: ", error);
-    });
-    response.redirect('/feed');
+    if(currentUser) {
+        var obj = request.body;
+        const post = db.collection('posts').add({
+            title: obj.title,
+            image: "image.jpg",
+            location: obj.location,
+            description: obj.description
+        })
+        .then(function(docRef) {
+            console.log("Document written with ID: ", docRef.id);
+        })
+        .catch(function(error) {
+            console.error("Error adding document: ", error);
+        });
+        response.redirect('/feed');
+    }  else {
+        response.redirect('/login');
+    }
 })
 
 app.get('/login', (request, response) => {
@@ -76,7 +93,7 @@ app.get('/login', (request, response) => {
 
 app.post('/login', (request, response) => {
     var uid = request.body.uid;
-    console.log(uid);
+    // console.log(uid);
     auth.getUser(uid)
         .then(user => {
             console.log(user);
@@ -87,8 +104,8 @@ app.post('/login', (request, response) => {
             console.log(err);
             response.sendStatus(400);        
         });
-    console.log(currentUser);
-    response.sendStatus(200);
+    // console.log(currentUser);
+    // response.sendStatus(200);
 })
 
 app.get('/signup', (request, response) => {
@@ -96,17 +113,24 @@ app.get('/signup', (request, response) => {
 })
 
 app.post('/signup', (request, response) => {
+    // TODO
     response.sendstatus(200);
 })
 
-
-
 app.get('/editpost', (request, response) => {
-    response.render('editpost');
+    if(currentUser) {
+        response.render('editpost');
+    } else {
+        response.redirect('/login');
+    }
 });
 
 app.get('/loginoptions', (request, response) => {
-    response.render('loginoptions');
+    if(currentUser) {
+        response.render('loginoptions');
+    } else {
+        response.redirect('/login');
+    }
 });
 
 exports.app = functions.https.onRequest(app)

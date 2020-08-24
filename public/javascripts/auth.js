@@ -43,14 +43,6 @@ function login() {
         console.log(firebase.auth().currentUser);
         if (firebase.auth().currentUser.emailVerified) {
             // POST to /home with user UID
-
-            // console.log(firebase.auth().currentUser.uid);
-            // window.location.href = "/home";
-            // var xhr = new XMLHttpRequest();
-            // xhr.open("POST", "/login", true);
-            // xhr.setRequestHeader('Content-Type', 'application/json');
-            // xhr.send({uid: firebase.auth().currentUser.uid});
-
             $.post(
                 '/login', 
                 {uid: firebase.auth().currentUser.uid},
@@ -58,8 +50,8 @@ function login() {
                 })
                 .done(function() {
                     window.location.href = '/';
-                });
-           
+                })
+                ;
         } else {
             alert("Please verify your email");
         }
