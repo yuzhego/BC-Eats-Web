@@ -19,12 +19,16 @@ const { credential } = require('firebase-admin');
 admin.initializeApp({
     credential: admin.credential.cert(config)
 });
-
 const auth = admin.auth();
 const db = admin.firestore();
+var currentUser = null;
+
 
 app.get('/', (request, response) => {
-    response.render('index', { username: 'Temp'});
+    if(currentUser) {
+        response.redirect('/home');
+    }
+    response.redirect('/login');
 });
 
 app.get('/home', (request, response) => {
@@ -70,17 +74,32 @@ app.get('/login', (request, response) => {
     response.render('login');
 })
 
+app.post('/login', (request, response) => {
+    var uid = request.body.uid;
+    console.log(uid);
+    auth.getUser(uid)
+        .then(user => {
+            console.log(user);
+            currentUser = user;
+            response.sendStatus(200);
+        })
+        .catch(err => {
+            console.log(err);
+            response.sendStatus(400);        
+        });
+    console.log(currentUser);
+    response.sendStatus(200);
+})
+
 app.get('/signup', (request, response) => {
     response.render('signup');
 })
 
 app.post('/signup', (request, response) => {
-    response.status(200);
+    response.sendstatus(200);
 })
 
-app.post('/login', (request, response) => {
-    response.redirect('/home');
-})
+
 
 app.get('/editpost', (request, response) => {
     response.render('editpost');

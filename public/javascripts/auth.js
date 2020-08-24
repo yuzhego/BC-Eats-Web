@@ -28,31 +28,52 @@ function signup() {
 }
 
 function login() {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        if (email.length < 4) {
-            alert('Please enter an email address.');
-            return;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+    }
+    if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+    }
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function () {
+        console.log(firebase.auth().currentUser);
+        if (firebase.auth().currentUser.emailVerified) {
+            // POST to /home with user UID
+
+            // console.log(firebase.auth().currentUser.uid);
+            // window.location.href = "/home";
+            // var xhr = new XMLHttpRequest();
+            // xhr.open("POST", "/login", true);
+            // xhr.setRequestHeader('Content-Type', 'application/json');
+            // xhr.send({uid: firebase.auth().currentUser.uid});
+
+            $.post(
+                '/login', 
+                {uid: firebase.auth().currentUser.uid},
+                function() {
+                })
+                .done(function() {
+                    window.location.href = '/';
+                });
+           
+        } else {
+            alert("Please verify your email");
         }
-        if (password.length < 4) {
-            alert('Please enter a password.');
-            return;
+    })
+    .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+            alert('Wrong password.');
+        } else {
+            alert(errorMessage);
         }
-        firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(function () {
-           console.log(firebase.auth().currentUser);
-           window.location.href = "/home";
-        })
-        .catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-        });
+        console.log(error);
+    });
 }
 
 function logout() {
