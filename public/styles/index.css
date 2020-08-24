@@ -31,21 +31,47 @@ img {
     width: 300px;
 }
 
-nav {        
-    background-color: aliceblue;
-    border: 1px green solid;
-    padding: 20px;
-    margin: auto;
+/* NEW */
+
+body { 
+    background-color: rgb(130, 121, 175);
 }
 
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+header {
+   margin-bottom: 20px;
 }
 
-nav li {
-    display: inline;
-    padding-left: 100px; 
+main {
+    margin-top: 70px;
 }
 
+footer {
+    background-color:gainsboro;
+    padding-left: 5px;
+    border: black solid thin;
+    border-radius: 8px;
+    text-align: center;
+    color: maroon;
+}
+.navbar-custom {
+    background-color: #1dd3bd
+}
+
+.navbar-nav > li{
+    padding-left: 15px;
+    font-family: Georgia;
+}
+
+.navbar-dark .navbar-nav .nav-item.active .nav-link {
+    color: yellow; 
+} 
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: yellow;
+}
+
+button {
+    background-color: brown;
+    color: white;
+    border-radius: 20px;
+}

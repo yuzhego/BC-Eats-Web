@@ -3,7 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="styles/index.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+        <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-auth.js"></script>
+        <script defer src="https://www.gstatic.com/firebasejs/7.18.0/firebase-firestore.js"></script>
+        <script src="/__/firebase/init.js"></script>
         <title>BC-Eats</title>
     </head>
     <body>
@@ -24,7 +30,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/newpost">New Post</a>
                         </li> 
-                        <li class="nav-item active">
+                        <li class="nav-item">
                             <a class="nav-link" href="/editpost">Edit Post</a>
                         </li> 
                         <li class="nav-item">
@@ -33,30 +39,35 @@
                     </ul>
                 </div>
             </nav>   
-        </header> 
-        <div class="main-header">
-            <h1>Post My Event Excess Food</h1>
-            <h2>To make a post or edit your previous posts, log in as a verified user</h2>
-        </div>
-        <div class="main-login">
-            <form action="/login" method="login">
-                <label for="id">Student/Employee ID</label>
-                <input type="text" id="id1" name="id">
-                <label for="pass">Password</label>
-                <input type="password" id="pass" name="pass">
-                <input type="submit" value="Log In"><br>
-            </form>
-        </div>
-        <div class="main-signup">
-            <p>First time user? Enter your Student/Employee ID and then go to Student Programs to show
-                the front desk staff you’re affiliated with Bellevue College and you will be given a temporary password
-            </p>
-            <p>You will be able to change your password after the first time you log in</p>
-            <form action="">
-                <label for="id">Student/Employee ID</label>
-                <input type="text" id="id2" name="id">
-                <input type="submit" value="Submit"><br>
-            </form>
-        </div>
+        </header>
+        <main class="container">
+            <div class="main-header">
+                <h1>Post My Event Excess Food</h1>
+                <h2>To make a post or edit your previous posts, log in as a verified user</h2>
+            </div>
+            <div class="main-login">
+                <form action="/login" method="login">
+                    <label for="id">Student/Employee ID</label>
+                    <input type="text" id="id1" name="id">
+                    <label for="pass">Password</label>
+                    <input type="password" id="pass" name="pass">
+                    <input type="submit" value="Log In"><br>
+                </form>
+            </div>
+            <div class="main-signup">
+                <p>First time user? Enter your Student/Employee ID and then go to Student Programs to show
+                    the front desk staff you’re affiliated with Bellevue College and you will be given a temporary password
+                </p>
+                <p>You will be able to change your password after the first time you log in</p>
+                <form action="">
+                    <label for="id">Student/Employee ID</label>
+                    <input type="text" id="id2" name="id">
+                    <input type="submit" value="Submit"><br>
+                </form>
+            </div>
+        </main> 
+        <!-- <footer>
+
+        </footer> -->
     </body>
 </html>
