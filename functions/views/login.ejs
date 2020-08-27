@@ -33,12 +33,22 @@
         <main class="container">
             <label for="email">Email</label>
             <input type="text" id="email">
-            <label for="password">Password</label>
+            <label for="password" id="passwordlabel">Password</label>
             <input type="text" id="password"> 
             <button id="login">Login</button>
+            <button id="passwordForgot">Forgot Password</button>
+            <button id="passwordReset" style="display: none">Reset Password</button>
         </main>
         <script>
                 document.getElementById('login').addEventListener('click', login, false);
+                document.getElementById('passwordForgot').addEventListener('click', function() {
+                    document.getElementById('login').style.display = "none";
+                    document.getElementById('password').style.display = "none";
+                    document.getElementById('passwordlabel').style.display = "none";
+                    document.getElementById('passwordForgot').style.display = "none";
+                    document.getElementById('passwordReset').style.display = "block";
+                }, false);
+                document.getElementById('passwordReset').addEventListener('click', passwordReset, false);
         </script>
     </body>
 </html>

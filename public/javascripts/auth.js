@@ -1,3 +1,4 @@
+// TODO: check password2 == password1
 function signup() {
     var email = document.getElementById('email').value;
     var password = document.getElementById('password1').value;
@@ -41,6 +42,7 @@ function login() {
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function () {
         console.log(firebase.auth().currentUser);
+        // TODO: Will need to be done server side to prevent access to non-verified users
         if (firebase.auth().currentUser.emailVerified) {
             // POST to /home with user UID
             $.post(
@@ -74,6 +76,7 @@ function logout() {
     }
 }
 
+// TODO: we will have to do this on server side because it can be easily altered in a web browser
 function validateEmail(inputEmail) {
     var mailformat = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@bellevuecollege.edu?/;
     if(inputEmail.match(mailformat)) {
@@ -82,4 +85,15 @@ function validateEmail(inputEmail) {
         alert("You have entered an invalid email address!");
         return false;
     }
+}
+
+function passwordReset() {
+    var email = document.getElementById('email').value;
+    firebase.auth().sendPasswordResetEmail(email).then(function() {
+        alert("Email has been sent to reset password");
+        window.location.href = '/';
+    }).catch(function(error) {
+        alert(error.message);
+        console.log(error);
+    })
 }

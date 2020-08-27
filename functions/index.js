@@ -88,7 +88,11 @@ app.post('/post', (request, response) => {
 })
 
 app.get('/login', (request, response) => {
-    response.render('login');
+    if(currentUser) {
+        response.redirect('/home');
+    } else {
+        response.render('login');
+    }
 })
 
 app.post('/login', (request, response) => {
@@ -131,6 +135,11 @@ app.get('/loginoptions', (request, response) => {
     } else {
         response.redirect('/login');
     }
+});
+
+app.get('/logout', (request, response) => {
+    currentUser = null;
+    response.redirect('/login');
 });
 
 exports.app = functions.https.onRequest(app)
