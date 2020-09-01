@@ -52,8 +52,7 @@ function login() {
                 })
                 .done(function() {
                     window.location.href = '/';
-                })
-                ;
+                });
         } else {
             alert("Please verify your email");
         }

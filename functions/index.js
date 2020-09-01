@@ -17,12 +17,15 @@ const admin = require('firebase-admin');
 const config = require('./serviceAcountKey.json');
 const { credential } = require('firebase-admin');
 admin.initializeApp({
-    credential: admin.credential.cert(config)
+    credential: admin.credential.cert(config),
+    databaseURL : "https://bc-eats-b0c89.firebaseio.com/"
 });
 const auth = admin.auth();
 const db = admin.firestore();
-var currentUser = null;
+const database = admin.database();
+var misc_next_id = 0;
 
+var currentUser = null;
 
 app.get('/', (request, response) => {
     if(currentUser) {
@@ -53,6 +56,9 @@ app.get('/feed', (request, response) => {
                 console.log(err);
                 response.render('feed');        
             });
+        // database.ref('/misc').update({ 
+        //     next_post_id : 1
+        // });
     } else {
         response.redirect('/login');
     }
@@ -69,6 +75,7 @@ app.get('/newpost', (request, response) => {
 app.post('/post', (request, response) => {
     if(currentUser) {
         var obj = request.body;
+        // console.log(obj);
         const post = db.collection('posts').add({
             title: obj.title,
             image: "image.jpg",
