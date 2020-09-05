@@ -42,12 +42,12 @@
             <div class="main-header">
                 <h1>Food Available Near You</h1>
                 <div id="feed">
-                    <% posts.forEach(post => { %>
-                        <h4><%- post.data().title %></h4>
-                        <p>location : <%- post.data().location %></p>
-                        <p>description : <%- post.data().description %></p>
-                        <p>image : <%- post.data().image %></p>
-                    <% }); %>   
+                    <% for(post in posts) { %>
+                        <h4><%- posts[post].title %></h4>
+                        <p>location : <%- posts[post].location %></p>
+                        <p>description : <%- posts[post].description %></p>
+                        <p>image : <%- posts[post].image %></p>
+                    <% } %>
                 </div>
             </div>
         </main> 

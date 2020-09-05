@@ -45,20 +45,12 @@ app.get('/home', (request, response) => {
 
 app.get('/feed', (request, response) => {
     if(currentUser) {
-        const posts = db.collection('posts');
-        const query = posts.orderBy('title');
-        query.get()
-            .then(doc => {
-                response.render('feed', { posts: doc } ); 
-            })
-            .catch(err => {
-                console.log("error");
-                console.log(err);
-                response.render('feed');        
-            });
-        // database.ref('/misc').update({ 
-        //     next_post_id : 1
-        // });
+        const posts = database.ref('posts');
+        posts.orderByChild('until').on('value', function(snapshot) {
+            response.render('feed', { posts: snapshot.val() });
+        }, function (errorObject) {
+            console.log("The read failed: " + errorObject.code);
+        });
     } else {
         response.redirect('/login');
     }
@@ -75,21 +67,22 @@ app.get('/newpost', (request, response) => {
 app.post('/post', (request, response) => {
     if(currentUser) {
         var obj = request.body;
-        // console.log(obj);
-        const post = db.collection('posts').add({
+        const post = database.ref('posts').push({
             title: obj.title,
             image: "image.jpg",
             location: obj.location,
-            description: obj.description
+            description: obj.description,
+            uid: currentUser.uid,
+            until: "n/a"
         })
-        .then(function(docRef) {
-            console.log("Document written with ID: ", docRef.id);
+        .then(function(ref) {
+            console.log("Post written with ID: ", ref.id);
         })
         .catch(function(error) {
-            console.error("Error adding document: ", error);
+            console.error("Error adding post: ", error);
         });
         response.redirect('/feed');
-    }  else {
+    } else {
         response.redirect('/login');
     }
 })
