@@ -4,6 +4,7 @@ An ongoing student led project that intends to reduce food waste by notifying us
 ## How to run the app locally:
 
 ###### Open a terminal
+###### Make sure you have Node and npm installed properly
 ###### run 'npm install -g firebase-tools'
 ###### run 'firebase login'
 ###### go to functions directory
