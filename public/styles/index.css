@@ -1,0 +1,77 @@
+.main-header {
+    margin : auto;
+    width : 50%;
+    text-align: center;
+}
+.main-options {
+    display: flex;
+}
+
+.main-options-side {
+    float: left;
+    width: 30%;
+    padding: 10px;
+    border : 1px;
+    border-style: solid;
+    flex: 1;
+    text-align: center;
+    margin: 20px;
+}
+
+.main-subscription {
+    display: flex;
+    height: 300px;
+    align-items: center;
+    justify-self: center;
+    flex-direction: column;
+}
+
+img {
+    height: 300px;
+    width: 300px;
+}
+
+/* NEW */
+
+body { 
+    background-color: rgb(130, 121, 175);
+}
+
+header {
+   margin-bottom: 20px;
+}
+
+main {
+    margin-top: 70px;
+}
+
+footer {
+    background-color:gainsboro;
+    padding-left: 5px;
+    border: black solid thin;
+    border-radius: 8px;
+    text-align: center;
+    color: maroon;
+}
+.navbar-custom {
+    background-color: #1dd3bd
+}
+
+.navbar-nav > li{
+    padding-left: 15px;
+    font-family: Georgia;
+}
+
+.navbar-dark .navbar-nav .nav-item.active .nav-link {
+    color: yellow; 
+} 
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: yellow;
+}
+
+button {
+    background-color: brown;
+    color: white;
+    border-radius: 20px;
+}
