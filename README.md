@@ -7,7 +7,7 @@ An ongoing student led project that intends to reduce food waste by notifying us
 ###### Make sure you have Node and npm installed properly
 ###### run 'npm install -g firebase-tools'
 ###### run 'firebase login'
-###### Any trouble? follow this link https://firebase.google.com/docs/cli#mac-linux-npm
+###### Any trouble? follow this link https://firebase.google.com/docs/cli
 ###### go to functions directory
 ###### run 'npm install'
 ###### run 'firebase serve'
