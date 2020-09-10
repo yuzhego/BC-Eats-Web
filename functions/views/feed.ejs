@@ -47,9 +47,46 @@
                         <p>location : <%- posts[post].location %></p>
                         <p>description : <%- posts[post].description %></p>
                         <p>image : <%- posts[post].image %></p>
+                        <% if(posts[post].uid == user.uid) { %>
+                            <div id="<%- post %>">
+                                <button id="delete">Delete</button>
+                                <button id="edit">Edit</button>
+                            </div>
+                        <% } %>
                     <% } %>
                 </div>
             </div>
-        </main> 
+        </main>
+        <script>
+            var deleteButton = document.getElementById('delete');
+            deleteButton.addEventListener('click', function(e) {
+                fetch('/deletepost', {
+                    method: 'POST',
+                    body: deleteButton.parentElement.id
+                })
+                .then(function(response) {
+                    console.log('Post deleted');
+                    window.location.href = "/feed";
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            });
+
+            var editButton = document.getElementById('edit');
+            editButton.addEventListener('click', function(e) {
+                fetch('/editpost', {
+                    method: 'POST',
+                    body: editButton.parentElement.id
+                })
+                .then(function(response) {
+                    console.log('Post edited');
+                    window.location.href = "/feed";
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
+            });
+        </script>
     </body>
 </html>

@@ -47,7 +47,7 @@ app.get('/feed', (request, response) => {
     if(currentUser) {
         const posts = database.ref('posts');
         posts.orderByChild('until').on('value', function(snapshot) {
-            response.render('feed', { posts: snapshot.val() });
+            response.render('feed', { posts: snapshot.val(), user: currentUser });
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -82,6 +82,23 @@ app.post('/post', (request, response) => {
             console.error("Error adding post: ", error);
         });
         response.redirect('/feed');
+    } else {
+        response.redirect('/login');
+    }
+})
+
+app.post('/deletepost', (request, response) => {
+    if(currentUser) {
+        var obj = request.body;
+        console.log('posts/' + obj);
+        const post = database.ref('posts/' + obj).remove()
+        .then(function() {
+            console.log("Post deleted");
+        })
+        .catch(function(error) {
+            console.error("Error adding post: ", error);
+        });
+        response.sendstatus(200);
     } else {
         response.redirect('/login');
     }
@@ -128,6 +145,23 @@ app.get('/editpost', (request, response) => {
         response.redirect('/login');
     }
 });
+
+// app.post('/editpost', (request, response) => {
+//     if(currentUser) {
+//         var obj = request.body;
+//         console.log('posts/' + obj);
+//         const post = database.ref('posts/' + obj)
+//         .then(function() {
+//             console.log("Post deleted");
+//         })
+//         .catch(function(error) {
+//             console.error("Error adding post: ", error);
+//         });
+//         response.sendstatus(200);
+//     } else {
+//         response.redirect('/login');
+//     }
+// })
 
 app.get('/loginoptions', (request, response) => {
     if(currentUser) {
