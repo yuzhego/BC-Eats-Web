@@ -138,7 +138,15 @@ app.post('/signup', (request, response) => {
     response.sendstatus(200);
 })
 
-app.get('/editpost', (request, response) => {
+app.post('/edit', (request, response) => {
+    if(currentUser) {
+        response.redirect('/editpost/' + request.body);
+    } else {
+        response.redirect('/login');
+    }
+})
+
+app.get('/editpost', (request, response) => { // editpost needs to be a pop up element inside the feed or we will need to find a way to send data to the editpost page AND update the window to look at this rendered page
     if(currentUser) {
         response.render('editpost');
     } else {
@@ -146,22 +154,48 @@ app.get('/editpost', (request, response) => {
     }
 });
 
-// app.post('/editpost', (request, response) => {
-//     if(currentUser) {
-//         var obj = request.body;
-//         console.log('posts/' + obj);
-//         const post = database.ref('posts/' + obj)
-//         .then(function() {
-//             console.log("Post deleted");
-//         })
-//         .catch(function(error) {
-//             console.error("Error adding post: ", error);
-//         });
-//         response.sendstatus(200);
-//     } else {
-//         response.redirect('/login');
-//     }
-// })
+app.get('/editpost/:pid', (request, response) => { // editpost needs to be a pop up element inside the feed or we will need to find a way to send data to the editpost page AND update the window to look at this rendered page
+    if(currentUser) {
+        console.log(request.params.pid);
+        response.render('editpost');
+
+        // console.log("editing post");
+        // const post = database.ref('posts/' + request.params.pid);
+        // post.on('value', function(snapshot) {
+        //     console.log("editing post2");
+        //     return response.render('editpost', { post: snapshot.val() });
+            
+        // }, function (errorObject) {
+        //     console.log("The read failed: " + errorObject.code);
+        // });
+    } else {
+        response.redirect('/login');
+    }
+});
+
+app.post('/editpost', (request, response) => {
+    if(currentUser) {
+        var obj = request.body;
+        console.log('posts/' + obj);
+        const post = database.ref('posts/' + obj).set({
+            title: obj.title,
+            image: "image.jpg",
+            location: obj.location,
+            description: obj.description,
+            uid: currentUser.uid,
+            until: "n/a"
+        })
+        .then(function() {
+            console.log("Post edited");
+        })
+        .catch(function(error) {
+            console.error("Error editing post: ", error);
+        });
+        response.sendstatus(200);
+    } else {
+        response.redirect('/login');
+    }
+})
 
 app.get('/loginoptions', (request, response) => {
     if(currentUser) {

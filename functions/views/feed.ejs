@@ -75,13 +75,11 @@
 
             var editButton = document.getElementById('edit');
             editButton.addEventListener('click', function(e) {
-                fetch('/editpost', {
+                fetch('/edit', {
                     method: 'POST',
                     body: editButton.parentElement.id
                 })
                 .then(function(response) {
-                    console.log('Post edited');
-                    window.location.href = "/feed";
                 })
                 .catch(function(error) {
                     console.log(error);

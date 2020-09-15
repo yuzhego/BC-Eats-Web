@@ -43,12 +43,12 @@
                 <h1>Edit My Post</h1>
             </div>
 
-            <form action="" method="post">
-                <p>Title <input name="title" type="text" ></p>
-                <p>Location <input name="location" type="text" ></p>
-                <p>Available until <input name="available_until" type="datetime-local" ></p>
-                <p>Description <input name="description" type="text" ></p>
-                <p>Image <input name="image" type="file" accept=".jpg"></p>  
+            <form action="/editpost" method="post">
+                <p>Title <input name="title" type="text" value="<% post.title %>"></p>
+                <p>Location <input name="location" type="text" value="<% post.location %>"></p>
+                <p>Available until <input name="available_until" type="datetime-local" ></p><!-- need to add data value -->
+                <p>Description <input name="description" type="text" value="<% post.description %>"></p>
+                <p>Image <input name="image" type="file" accept=".jpg"></p><!-- need to add data value -->
 
                 <input type="submit" value="Submit">
             </form>
