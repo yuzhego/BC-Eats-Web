@@ -11,28 +11,7 @@ function signup() {
         function() {
         }) 
         .done(function() {
-            // firebase.auth().createUserWithEmailAndPassword(email, password)
-            // .then(function() {
-            //     var user = firebase.auth().currentUser;
-            //     user.sendEmailVerification()
-            //     .then(function() {
-            //         window.location.href = "/login";
-            //     })
-            //     .catch(function(error) {
-            //         alert(error.message);
-            //         console.log(error);
-            //     });
-            // })
-            // .catch(function(error) {
-            //     var errorCode = error.code;
-            //     var errorMessage = error.message;
-            //     if (errorCode == 'auth/weak-password') {
-            //         alert('The password is too weak.');
-            //     } else {
-            //         alert(errorMessage);
-            //     }
-            //     console.log(error);
-            // })
+           
         })
         .catch(function() {
             alert("You have entered an invalid email address!");
@@ -48,7 +27,7 @@ function login() {
         alert('Please enter an email address.');
         return;
     }
-    if (password.length < 4) {
+    if (password.length < 6) {
         alert('Please enter a password.');
         return;
     }

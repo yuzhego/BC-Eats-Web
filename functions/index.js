@@ -159,28 +159,35 @@ app.post('/signup', (request, response) => {
             // displayName: username,
             // photoURL: 'http://www.example.com/12345678/photo.png',
             disabled: false
-          })
-            .then(function(userRecord) {
-              console.log('Successfully created new user:', userRecord.uid);
-              auth.generateEmailVerificationLink(email)
-              .then(function(link) {
+        })
+        .then(function(userRecord) {
+            console.log('Successfully created new user:', userRecord.uid);
+            auth.generateEmailVerificationLink(email)
+            .then(function(link) {
+                // Send link through custom SMTP
                 console.log(link)
-              });
-              
-            })
-            .catch(function(error) {
-              console.log('Error creating new user:', error);
-            });
+            });     
+        })
+        .catch(function(error) {
+            console.log('Error creating new user:', error);
+        });
     } else {
         if(!validEmail) {
             console.log("invalid email");
         }
+        
         if (!confirmedPassword) {
             console.log("Password don't match");
         }
     }
 
-    response.sendStatus(200);
+    // if errors send list of errors
+    if (errors) {
+        response.send({errors : errors})
+    } else {
+        response.sendStatus(200);
+    }
+    
 })
 
 app.get('/editpost', (request, response) => {
