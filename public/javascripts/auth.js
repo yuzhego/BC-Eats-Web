@@ -1,31 +1,44 @@
 // TODO: check password2 == password1
 function signup() {
     var email = document.getElementById('email').value;
-    var password = document.getElementById('password1').value;
-    if (validateEmail(email)) {
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(function() {
-            var user = firebase.auth().currentUser;
-            user.sendEmailVerification()
-            .then(function() {
-                window.location.href = "/login";
-            })
-            .catch(function(error) {
-                alert(error.message);
-                console.log(error);
-            });
+    var password1 = document.getElementById('password1').value;
+    var password2 = document.getElementById('password2').value;
+    // password2
+    var validEmail = false;
+    $.post(
+        '/signup', 
+        {email: email, password1: password1, password2: password2},
+        function() {
+        }) 
+        .done(function() {
+            // firebase.auth().createUserWithEmailAndPassword(email, password)
+            // .then(function() {
+            //     var user = firebase.auth().currentUser;
+            //     user.sendEmailVerification()
+            //     .then(function() {
+            //         window.location.href = "/login";
+            //     })
+            //     .catch(function(error) {
+            //         alert(error.message);
+            //         console.log(error);
+            //     });
+            // })
+            // .catch(function(error) {
+            //     var errorCode = error.code;
+            //     var errorMessage = error.message;
+            //     if (errorCode == 'auth/weak-password') {
+            //         alert('The password is too weak.');
+            //     } else {
+            //         alert(errorMessage);
+            //     }
+            //     console.log(error);
+            // })
         })
-        .catch(function(error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode == 'auth/weak-password') {
-                alert('The password is too weak.');
-            } else {
-                alert(errorMessage);
-            }
-            console.log(error);
-        })
-    }
+        .catch(function() {
+            alert("You have entered an invalid email address!");
+        });
+
+ 
 }
 
 function login() {
@@ -75,23 +88,15 @@ function logout() {
     }
 }
 
-// TODO: we will have to do this on server side because it can be easily altered in a web browser
-function validateEmail(inputEmail) {
-    var mailformat = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@bellevuecollege.edu?/;
-    if(inputEmail.match(mailformat)) {
-        return true;
-    } else {
-        alert("You have entered an invalid email address!");
-        return false;
-    }
-}
 
 function passwordReset() {
     var email = document.getElementById('email').value;
-    firebase.auth().sendPasswordResetEmail(email).then(function() {
+    firebase.auth().sendPasswordResetEmail(email)
+    .then(function() {
         alert("Email has been sent to reset password");
         window.location.href = '/';
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
         alert(error.message);
         console.log(error);
     })

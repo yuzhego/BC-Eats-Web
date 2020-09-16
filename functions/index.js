@@ -27,6 +27,16 @@ var misc_next_id = 0;
 
 var currentUser = null;
 
+// TODO: we will have to do this on server side because it can be easily altered in a web browser
+function validateEmail(inputEmail) {
+    var mailformat = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@bellevuecollege.edu?/;
+    if(inputEmail.match(mailformat)) {
+        return true;
+    } 
+    return false;
+}
+
+
 app.get('/', (request, response) => {
     if(currentUser) {
         response.redirect('/home');
@@ -134,8 +144,43 @@ app.get('/signup', (request, response) => {
 })
 
 app.post('/signup', (request, response) => {
-    // TODO
-    response.sendstatus(200);
+    errors = {};
+    var email = request.body.email;
+    var password1 = request.body.password1;
+    var password2 = request.body.password2;
+
+    var validEmail = validateEmail(email);
+    var confirmedPassword = password1 == password2;
+    if (validEmail && confirmedPassword) {
+        auth.createUser({
+            email: email,
+            emailVerified: false,
+            password: password1,
+            // displayName: username,
+            // photoURL: 'http://www.example.com/12345678/photo.png',
+            disabled: false
+          })
+            .then(function(userRecord) {
+              console.log('Successfully created new user:', userRecord.uid);
+              auth.generateEmailVerificationLink(email)
+              .then(function(link) {
+                console.log(link)
+              });
+              
+            })
+            .catch(function(error) {
+              console.log('Error creating new user:', error);
+            });
+    } else {
+        if(!validEmail) {
+            console.log("invalid email");
+        }
+        if (!confirmedPassword) {
+            console.log("Password don't match");
+        }
+    }
+
+    response.sendStatus(200);
 })
 
 app.get('/editpost', (request, response) => {
