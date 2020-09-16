@@ -75,15 +75,8 @@
 
             var editButton = document.getElementById('edit');
             editButton.addEventListener('click', function(e) {
-                fetch('/edit', {
-                    method: 'POST',
-                    body: editButton.parentElement.id
-                })
-                .then(function(response) {
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+                window.location.href = "/editpost/" + editButton.parentElement.id;
+                // need to figure out a way to not pass the id through the url if desired
             });
         </script>
     </body>

@@ -44,12 +44,12 @@
             </div>
 
             <form action="/editpost" method="post">
-                <p>Title <input name="title" type="text" value="<% post.title %>"></p>
-                <p>Location <input name="location" type="text" value="<% post.location %>"></p>
+                <p>Title <input name="title" type="text" <%- "value=\"" + post.title + "\"" %>></p>
+                <p>Location <input name="location" type="text" <%- "value=\"" + post.location + "\"" %>></p>
                 <p>Available until <input name="available_until" type="datetime-local" ></p><!-- need to add data value -->
-                <p>Description <input name="description" type="text" value="<% post.description %>"></p>
+                <p>Description <input name="description" type="text" <%- "value=\"" + post.description + "\"" %>></p>
                 <p>Image <input name="image" type="file" accept=".jpg"></p><!-- need to add data value -->
-
+                <input name="pid" type="text" style="display:none" <%- "value=\"" + pid + "\"" %>>
                 <input type="submit" value="Submit">
             </form>
         </main>
