@@ -36,6 +36,13 @@ function validateEmail(inputEmail) {
     return false;
 }
 
+function validatePassword(password) {
+    if(password.length >= 6) {
+        return true;
+    }
+    return false;
+}
+
 
 app.get('/', (request, response) => {
     if(currentUser) {
@@ -144,14 +151,16 @@ app.get('/signup', (request, response) => {
 })
 
 app.post('/signup', (request, response) => {
-    errors = {};
+    var errors = [];
     var email = request.body.email;
     var password1 = request.body.password1;
     var password2 = request.body.password2;
-
     var validEmail = validateEmail(email);
     var confirmedPassword = password1 == password2;
-    if (validEmail && confirmedPassword) {
+    var validPassword = validatePassword(password1);
+    var temp = 0;
+
+    if (validEmail && confirmedPassword && validPassword) {
         auth.createUser({
             email: email,
             emailVerified: false,
@@ -169,25 +178,31 @@ app.post('/signup', (request, response) => {
             });     
         })
         .catch(function(error) {
+            errors.push(error.message);
+            console.log(errors);
             console.log('Error creating new user:', error);
         });
+
     } else {
         if(!validEmail) {
-            console.log("invalid email");
+            errors.push("Invalid bellevue college email.");
         }
-        
+
         if (!confirmedPassword) {
-            console.log("Password don't match");
+            errors.push("Password fields do not match.");
+        }
+
+        if(!validPassword) {
+            errors.push("Password must be at least 6 characters.") 
         }
     }
 
     // if errors send list of errors
-    if (errors) {
-        response.send({errors : errors})
+    if (errors.length > 0) {
+        response.send({messages : errors});
     } else {
         response.sendStatus(200);
     }
-    
 })
 
 app.get('/editpost', (request, response) => {

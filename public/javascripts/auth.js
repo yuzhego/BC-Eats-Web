@@ -3,21 +3,21 @@ function signup() {
     var email = document.getElementById('email').value;
     var password1 = document.getElementById('password1').value;
     var password2 = document.getElementById('password2').value;
-    // password2
-    var validEmail = false;
     $.post(
         '/signup', 
         {email: email, password1: password1, password2: password2},
         function() {
         }) 
-        .done(function() {
-           
+        .done(function(errors) {
+            if (errors) {
+                console.log("done");
+                console.log(errors);
+            }
         })
         .catch(function() {
-            alert("You have entered an invalid email address!");
+            console.log("Reload");
+            // window.location.reload();
         });
-
- 
 }
 
 function login() {
