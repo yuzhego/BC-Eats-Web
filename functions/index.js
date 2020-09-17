@@ -23,11 +23,9 @@ admin.initializeApp({
 const auth = admin.auth();
 const db = admin.firestore();
 const database = admin.database();
-var misc_next_id = 0;
-
+// var misc_next_id = 0;
 var currentUser = null;
 
-// TODO: we will have to do this on server side because it can be easily altered in a web browser
 function validateEmail(inputEmail) {
     var mailformat = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@bellevuecollege.edu?/;
     if(inputEmail.match(mailformat)) {
@@ -36,12 +34,26 @@ function validateEmail(inputEmail) {
     return false;
 }
 
+function isEmailUnique(inputEmail) {
+    var user = null;
+    auth.getUserByEmail(inputEmail)
+    .then(function(record){
+        user = record;
+        return user == null
+    })
+    .catch(function(error){
+        return user == null
+    })
+}
+
 function validatePassword(password) {
     if(password.length >= 6) {
         return true;
     }
     return false;
 }
+
+
 
 
 app.get('/', (request, response) => {
@@ -156,11 +168,11 @@ app.post('/signup', (request, response) => {
     var password1 = request.body.password1;
     var password2 = request.body.password2;
     var validEmail = validateEmail(email);
+    var uniqueEmail = isEmailUnique(email);
     var confirmedPassword = password1 == password2;
     var validPassword = validatePassword(password1);
-    var temp = 0;
 
-    if (validEmail && confirmedPassword && validPassword) {
+    if (validEmail && confirmedPassword && validPassword && uniqueEmail) {
         auth.createUser({
             email: email,
             emailVerified: false,
@@ -178,13 +190,13 @@ app.post('/signup', (request, response) => {
             });     
         })
         .catch(function(error) {
-            errors.push(error.message);
             console.log(errors);
             console.log('Error creating new user:', error);
         });
 
     } else {
-        if(!validEmail) {
+
+        if (!validEmail) {
             errors.push("Invalid bellevue college email.");
         }
 
@@ -192,8 +204,12 @@ app.post('/signup', (request, response) => {
             errors.push("Password fields do not match.");
         }
 
-        if(!validPassword) {
+        if (!validPassword) {
             errors.push("Password must be at least 6 characters.") 
+        }
+
+        if (!uniqueEmail) {
+            errors.push("A user with this email already exists.") 
         }
     }
 
