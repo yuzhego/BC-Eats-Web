@@ -1,5 +1,6 @@
 // TODO: check password2 == password1
 function signup() {
+    var messages = document.getElementById('errorMessages');
     var email = document.getElementById('email').value;
     var password1 = document.getElementById('password1').value;
     var password2 = document.getElementById('password2').value;
@@ -8,15 +9,25 @@ function signup() {
         {email: email, password1: password1, password2: password2},
         function() {
         }) 
-        .done(function(errors) {
-            if (errors) {
-                console.log("done");
-                console.log(errors);
+        .done(function(response) {
+            // console.log("done");
+            // console.log(response);
+            if (response == "OK") {
+                window.location.href = '/login';
+            }
+            else if (response.messages.length > 0 ) {
+                console.log(response);
+                messages.innerHTML = "";
+                response.messages.forEach(message => {
+                    var li = document.createElement('li');
+                    li.innerText = message;
+                    messages.appendChild(li);
+               });
             }
         })
         .catch(function() {
-            console.log("Reload");
-            // window.location.reload();
+            console.log("Errors");
+            window.location.reload();
         });
 }
 

@@ -21,7 +21,6 @@ admin.initializeApp({
     databaseURL : "https://bc-eats-b0c89.firebaseio.com/"
 });
 const auth = admin.auth();
-const db = admin.firestore();
 const database = admin.database();
 // var misc_next_id = 0;
 var currentUser = null;
@@ -172,7 +171,7 @@ app.post('/signup', (request, response) => {
     var confirmedPassword = password1 == password2;
     var validPassword = validatePassword(password1);
 
-    if (validEmail && confirmedPassword && validPassword && uniqueEmail) {
+    if (validEmail && confirmedPassword && validPassword) {
         auth.createUser({
             email: email,
             emailVerified: false,
@@ -208,9 +207,9 @@ app.post('/signup', (request, response) => {
             errors.push("Password must be at least 6 characters.") 
         }
 
-        if (!uniqueEmail) {
-            errors.push("A user with this email already exists.") 
-        }
+        // if (!uniqueEmail) {
+        //     errors.push("A user with this email already exists.") 
+        // }
     }
 
     // if errors send list of errors
@@ -218,6 +217,7 @@ app.post('/signup', (request, response) => {
         response.send({messages : errors});
     } else {
         response.sendStatus(200);
+        // response.send({messages : []});
     }
 })
 
