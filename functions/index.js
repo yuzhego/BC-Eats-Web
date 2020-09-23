@@ -53,13 +53,11 @@ function validatePassword(password) {
 }
 
 
-
-
 app.get('/', (request, response) => {
     if(currentUser) {
-        response.redirect('/home');
+        response.redirect('/feed');
     } else {
-        response.redirect('/login');
+        response.render('index');
     }
 });
 
@@ -80,7 +78,7 @@ app.get('/feed', (request, response) => {
             console.log("The read failed: " + errorObject.code);
         });
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 });
 
@@ -88,7 +86,7 @@ app.get('/newpost', (request, response) => {
     if(currentUser) {
         response.render('newpost', { user : currentUser });
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 });
 
@@ -111,7 +109,7 @@ app.post('/post', (request, response) => {
         });
         response.redirect('/feed');
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 })
 
@@ -128,17 +126,10 @@ app.post('/deletepost', (request, response) => {
         });
         response.sendstatus(200);
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 })
 
-app.get('/login', (request, response) => {
-    if(currentUser) {
-        response.redirect('/home');
-    } else {
-        response.render('login');
-    }
-})
 
 app.get('/about', (request, response) => {
     response.render('about');
