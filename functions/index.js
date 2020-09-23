@@ -65,7 +65,7 @@ app.get('/', (request, response) => {
 
 app.get('/home', (request, response) => {
     if (currentUser) {
-        response.render('home');
+        response.render('home', { user : currentUser });
     } else {
         response.redirect('/login');
     }
@@ -86,7 +86,7 @@ app.get('/feed', (request, response) => {
 
 app.get('/newpost', (request, response) => {
     if(currentUser) {
-        response.render('newpost');
+        response.render('newpost', { user : currentUser });
     } else {
         response.redirect('/login');
     }
