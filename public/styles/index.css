@@ -26,7 +26,8 @@ footer {
 
 .navbar-nav > li{
     padding-left: 15px;
-    font-family: Georgia;
+    font-family: sans-serif;
+    font-weight: bold;
 }
 
 .navbar-dark .navbar-nav .nav-item.active .nav-link {
@@ -41,6 +42,16 @@ button {
     background-color: brown;
     color: white;
     border-radius: 20px;
+}
+
+.logo {
+    margin-left: 70px;
+}
+.logo-text {
+    float: right;
+    margin-left: 10px;
+    font-family: sans-serif;
+    font-size: medium;
 }
 
 /* landing page */
