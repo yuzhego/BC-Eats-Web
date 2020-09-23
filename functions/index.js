@@ -140,6 +140,10 @@ app.get('/login', (request, response) => {
     }
 })
 
+app.get('/about', (request, response) => {
+    response.render('about');
+})
+
 app.post('/login', (request, response) => {
     var uid = request.body.uid;
     // console.log(uid);

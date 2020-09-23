@@ -30,24 +30,70 @@
         </style>
     </head>
     <body>
+        <header>
+            <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top py-2">
+                <a class="navbar-brand" href="/home">BCEats</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#signup">Sign up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#login">Login</a>
+                        </li>  
+                        <li class="nav-item">
+                            <a class="nav-link" href="#expect">What to expect</a>
+                        </li> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li> 
+                    </ul>
+                </div>
+            </nav>   
+        </header>  
         <main class="container">
-            <div id="errorMessages">
-                
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="text" id="email">
-                <label for="password1">Password</label>
-                <input type="password" id="password1"> 
-                <label for="password2">Confirm password</label>
-                <input type="password" id="password2"> 
-                <button id="signup"> Submit </button>
-            </div>
+            <section id="signup" class="container">
+                <div id="errorMessages"></div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" id="email">
+                    <label for="password1">Password</label>
+                    <input type="password" id="password1"> 
+                    <label for="password2">Confirm password</label>
+                    <input type="password" id="password2"> 
+                    <button id="signupBtn"> Submit </button>
+                </div>
+            </section>
+
+            <section id="login" class="container">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail">
+                <label for="loginPassword" id="passwordlabel">Password</label>
+                <input type="password" id="loginPassword"> 
+                <button id="loginBtn">Login</button>
+                <button id="passwordForgot">Forgot Password</button>
+                <button id="passwordReset" style="display: none">Reset Password</button>
+            </section>
+
+            <section id="expect" class="container">
+
+            </section>
+
         </main>
-        
         <script>
-            document.getElementById('signup').addEventListener('click', signup, false);
-        </script>
+            document.getElementById('loginBtn').addEventListener('click', login, false);
+            document.getElementById('passwordForgot').addEventListener('click', function() {
+                document.getElementById('loginBtn').style.display = "none";
+                document.getElementById('loginPassword').style.display = "none";
+                document.getElementById('passwordlabel').style.display = "none";
+                document.getElementById('passwordForgot').style.display = "none";
+                document.getElementById('passwordReset').style.display = "block";
+            }, false);
+            document.getElementById('passwordReset').addEventListener('click', passwordReset, false);
+            document.getElementById('signupBtn').addEventListener('click', signup, false);
+    </script>
     </body>
-    
 </html>

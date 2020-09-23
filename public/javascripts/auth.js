@@ -32,8 +32,8 @@ function signup() {
 }
 
 function login() {
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
+    var email = document.getElementById('loginEmail').value;
+    var password = document.getElementById('loginPassword').value;
     if (email.length < 4) {
         alert('Please enter an email address.');
         return;
@@ -80,11 +80,11 @@ function logout() {
 
 
 function passwordReset() {
-    var email = document.getElementById('email').value;
+    var email = document.getElementById('loginEmail').value;
     firebase.auth().sendPasswordResetEmail(email)
     .then(function() {
         alert("Email has been sent to reset password");
-        window.location.href = '/';
+        // window.location.href = '/';
     })
     .catch(function(error) {
         alert(error.message);
