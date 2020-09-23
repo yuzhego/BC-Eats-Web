@@ -22,7 +22,6 @@ admin.initializeApp({
 });
 const auth = admin.auth();
 const database = admin.database();
-// var misc_next_id = 0;
 var currentUser = null;
 
 function validateEmail(inputEmail) {
@@ -144,9 +143,6 @@ app.post('/login', (request, response) => {
     // response.sendStatus(200);
 })
 
-app.get('/signup', (request, response) => {
-    response.render('signup');
-})
 
 app.post('/signup', (request, response) => {
     var errors = [];
