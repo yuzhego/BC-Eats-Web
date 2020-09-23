@@ -61,14 +61,6 @@ app.get('/', (request, response) => {
     }
 });
 
-app.get('/home', (request, response) => {
-    if (currentUser) {
-        response.render('home', { user : currentUser });
-    } else {
-        response.redirect('/login');
-    }
-});
-
 app.get('/feed', (request, response) => {
     if(currentUser) {
         const posts = database.ref('posts');
@@ -270,7 +262,7 @@ app.get('/loginoptions', (request, response) => {
 
 app.get('/logout', (request, response) => {
     currentUser = null;
-    response.redirect('/login');
+    response.redirect('/');
 });
 
 exports.app = functions.https.onRequest(app)
