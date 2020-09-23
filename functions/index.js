@@ -132,7 +132,7 @@ app.post('/deletepost', (request, response) => {
 
 
 app.get('/about', (request, response) => {
-    response.render('about');
+    response.render('about', { user: currentUser });
 })
 
 app.post('/login', (request, response) => {

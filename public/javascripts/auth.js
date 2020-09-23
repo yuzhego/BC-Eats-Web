@@ -78,7 +78,6 @@ function logout() {
     }
 }
 
-
 function passwordReset() {
     var email = document.getElementById('loginEmail').value;
     firebase.auth().sendPasswordResetEmail(email)
