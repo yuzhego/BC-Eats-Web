@@ -4,12 +4,8 @@ body {
     background-color: rgb(250, 249, 255);
 }
 
-header {
-   margin-bottom: 40px;
-}
-
 main {
-    margin-top: 100px;
+    margin-top: 75px;
 }
 
 footer {
@@ -58,17 +54,37 @@ button {
 }
 
 /* landing page */
-
-#welcome {
-    background-color: pink;
-} 
-
 .landing {
     margin-bottom: 50px;
     padding: 100px;
 }
-.landing-img {
-    float: left;
+
+#welcome {
+    background-color: #FFD6ECD4;
+} 
+.welcome-text-div {
+    padding-top: 5%;
+    padding-left: 10%;
+    justify-content: center;
+    /* font-weight: bold; */
 }
+
+#welcome-text-message {
+    font-size: 55px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.welcome-img-div {
+    padding-left: 10%;
+    width: 398px;
+    height: 234px;
+}
+
+.welcome-img {
+    width: 100%;
+    height: 100%;
+}
+
 
 
