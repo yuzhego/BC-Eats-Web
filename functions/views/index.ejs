@@ -64,47 +64,53 @@
                 </div>
               </nav>    
         </header>  
-
         <main class="">
             <section id="welcome" class="landing">
-                <div class="container">
-                    <div class="row">
-                        <div class="welcome-text-div">
-                            <h2 id="welcome-text-message">Welcome to <br> Bulldog Eats !</h2>
-                            <p>A website to help Bellevue College people find free food.</p>
-                        </div>
-                        <br style="clear:both;"/>
-                        <div class="welcome-img-div" >
-                            <img class="welcome-img" src="images/map.png" alt="">
-                        </div>
+                <div id="welcome-divs" class="row">
+                    <div class="welcome-text-div">
+                        <h2 class="welcome-message">Welcome to <br> Bulldog Eats !</h2>
+                        <p>A website to help Bellevue College people find free food.</p>
                     </div>
-                </div>
-                
+                    <br style="clear:both;"/>
+                    <div class="welcome-img-div" >
+                        <img class="welcome-img" src="images/map.png" alt="">
+                    </div>
+                </div> 
             </section>
 
             <section id="signup" class="landing">
-              <div class="row container">
-                <div class="col"> 
-                    <img class="rounded-img" src="images/bulldog.png" alt="">
-                </div>
-                <div class="col">
-                    <div id="errorMessages"></div>
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="text" id="email">
-                        <label for="password1">Password</label>
-                        <input type="password" id="password1"> 
-                        <label for="password2">Confirm password</label>
-                        <input type="password" id="password2"> 
-                        <button id="signupBtn"> Submit </button>
+                <div class="row container">
+                    <div class="col"> 
+                        <img class="rounded-img" src="images/bulldog.png" alt="">
                     </div>
-                </div>
+                    <br style="clear:both;"/>
+                    <div class="col">
+                        <div>
+                            <h2 class="welcome-message"> Sign Up With Your BC Email! </h2>
+                            <p> 
+                                Get notified about free food on campus!
+                                Leftover food after an event? Don’t throw it all away! 
+                                Make a post in a quick 3 minutes to have students finish them off for you!
+                            </p>
+                        </div>
+                        <div id="errorMessages"></div>
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="text" id="email">
+                            <label for="password1">Password</label>
+                            <input type="password" id="password1"> 
+                            <label for="password2">Confirm password</label>
+                            <input type="password" id="password2"> 
+                            <button id="signupBtn"> Submit </button>
+                        </div>
+                    </div>
               </div>
             </section>
 
             <section id="login" class="landing">
                 <div class="row container">  
                     <div class="col">
+                        <h2 class="welcome-message"> Log in With Your Email </h2>
                         <label for="loginEmail">Email</label>
                         <input type="email" id="loginEmail">
                         <label for="loginPassword" id="passwordlabel">Password</label>
@@ -120,7 +126,37 @@
             </section>
 
             <section id="expectations" class="landing">
-
+                <div>
+                    <h2 class="welcome-message">What to expect from Bulldog Eats</h2>
+                </div>
+                <div class="row">
+                    <div class="grid-container">
+                        <div class="grid-item">
+                            <img src="images/icon-pan.png" alt="frying pan icon">
+                            <h4>Find Food Near You</h4>
+                            <p>
+                                A platform where you can enjoy free, quality food at school. 
+                                Get notified about free food locations nearby.
+                            </p>
+                        </div>
+                        <div class="grid-item">
+                            <img src="images/icon-food.png" alt="frying pan icon">
+                            <h4>Post Your excess Food</h4>
+                            <p>
+                                Apply to be a food provider! Create your post and edit it at any time. 
+                                To help reduce food waste.
+                            </p>
+                        </div>
+                        <div class="grid-item">
+                            <img src="images/icon-bell.png" alt="frying pan icon">
+                            <h4>Get Notifications With Your Phone Number</h4>
+                            <p>
+                                We have advanced notification system, 
+                                you can get notification for the newest post from your phone.
+                            </p>
+                        </div>  
+                    </div>
+                </div>
             </section>
         </main>
         <script>
