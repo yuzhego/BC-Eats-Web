@@ -1,61 +1,8 @@
-/* Shared */
-
-body { 
-    background-color:#FFFFFF;
-}
-
-main {
-    margin-top: 75px;
-}
-
-footer {
-    background-color:gainsboro;
-    padding-left: 5px;
-    border: black solid thin;
-    border-radius: 8px;
-    text-align: center;
-    color: maroon;
-}
-
-.navbar-nav > li{
-    padding-right: 40px;
-    font-family: sans-serif;
-    font-weight: bold; 
-}
-
-.navbar-nav .nav-item .nav-link {
-    color : #4F5C65;
-} 
-
-.navbar-nav .nav-item .nav-link:hover{
-    color: maroon;
-}
-
-button {
-    background-color: #5BAEC4;
-    color: white;
-    border-radius: 10px;
-    border-color: #FFFFFF;
-    padding: 12px 28px;
-    margin-top: 10px;
-}
-
-.logo {
-    margin-left: 70px;
-}
-.logo-text {
-    float: right;
-    margin-left: 10px;
-    font-family: sans-serif;
-    font-size: medium;
-    color: #4F5C65;
-}
-
-.rounded-img {
-    border-radius: 50%;
-}
-
 /* landing page */
+section:nth-child(even) {
+    background-color:#F7FAFC
+}
+
 .landing {
     margin-bottom: 50px; /* might not need*/
     padding: 100px;
