@@ -3,9 +3,13 @@ section:nth-child(even) {
     background-color:#F7FAFC
 }
 
-.landing {
+section {
     margin-bottom: 50px; /* might not need*/
     padding: 100px;
+}
+
+.solid-border {
+    border: solid;
 }
 
 #welcome {
