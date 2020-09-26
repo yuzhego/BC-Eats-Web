@@ -21,7 +21,8 @@ nav {
     /* border-width: thin; */
 }
 
-.navbar-nav > li{
+.navbar-nav > li {
+    
     padding-right: 40px;
     font-family: sans-serif;
     font-weight: bold; 
@@ -59,4 +60,11 @@ button {
 
 .rounded-img {
     border-radius: 50%;
+}
+
+.heading {
+    font-size: 58px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: #4F5C65;
 }

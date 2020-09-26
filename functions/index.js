@@ -61,16 +61,16 @@ app.get('/', (request, response) => {
 });
 
 app.get('/feed', (request, response) => {
-    if(currentUser) {
+    // if(currentUser) {
         const posts = database.ref('posts');
         posts.orderByChild('until').on('value', function(snapshot) {
             response.render('feed', { posts: snapshot.val(), user: currentUser });
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-    } else {
-        response.redirect('/');
-    }
+    // } else {
+    //     response.redirect('/');
+    // }
 });
 
 app.get('/newpost', (request, response) => {
