@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="styles/shared.css">
-        <link rel="stylesheet" href="styles/index.css">
+        <link rel="stylesheet" href="styles/feed.css">
         <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -15,8 +15,8 @@
     <body>
         <header>
             <nav class="navbar navbar-expand-lg bg-white navbar-light fixed-top py-2">
-                <a class="navbar-brand logo" href="/">
-                    <img src="images/logo.png" alt="">
+                <a class="navbar-brand" href="/">
+                    <img class="logo" src="images/logo.png" alt="">
                     <div class="logo-text">
                         <strong>BULLDOG EATS</strong>
                         <br>
@@ -48,23 +48,51 @@
             </nav>    
         </header> 
         <main>
-            <div class="main-header">
-                <h1>Food Available Near You</h1>
+            <section class="top-section">
+                <h2>Free food available</h2>
+            </section>
+            <section class="content-section">
+
+            </section>
                 <div id="feed">
                     <% for(post in posts) { %>
-                        <h4><%- posts[post].title %></h4>
-                        <p>location : <%- posts[post].location %></p>
-                        <p>description : <%- posts[post].description %></p>
-                        <p>image : <%- posts[post].image %></p>
-                        <% if(posts[post].uid == user.uid) { %>
-                            <div id="<%- post %>">
-                                <button id="delete">Delete</button>
-                                <button id="edit">Edit</button>
+                        <div class="row">
+                            <div class="col post-img-div">
+                                <!-- <p>image : <%- posts[post].image %></p>  -->
+                                <img class="post-img" src="images/food-props.jpg" alt="food image">
                             </div>
-                        <% } %>
+                            <div class="col container post-info-div">
+                                <h4><%- posts[post].title %></h4>
+                                <p> <%- posts[post].location %></p>
+                                <p> <%- posts[post].description %></p>
+                                <% if(user && posts[post].uid == user.uid) { %>
+                                    <div id="<%- post %>">
+                                        <button id="delete">Delete</button>
+                                        <button id="edit">Edit</button>
+                                    </div>
+                                <% } %>
+                            </div>
+                        </div>
                     <% } %>
+                    <hr>
                 </div>
-            </div>
+            </section>
+            <section>
+                <h2 class="heading text-center">Download Our App</h2>
+                <div class="text-center">
+                    <a class="navbar-brand text-left" href="">
+                        <img class="logo" src="images/logo.png" alt="logo">
+                        <div class="logo-text">
+                            <strong>BULLDOG EATS</strong>
+                            <br>
+                            Finding Free Excess Food
+                        </div>
+                    </a>
+                </div>
+                <div class="text-center">
+                    <button > Coming soon...</button>
+                </div>
+            </section>
         </main>
         <script>
             var deleteButton = document.getElementById('delete');

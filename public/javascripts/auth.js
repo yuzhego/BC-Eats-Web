@@ -1,6 +1,6 @@
 // TODO: check password2 == password1
 function signup() {
-    var messages = document.getElementById('errorMessages');
+    var messages = document.getElementById('signup-errors');
     var email = document.getElementById('email').value;
     var password1 = document.getElementById('password1').value;
     var password2 = document.getElementById('password2').value;
@@ -32,14 +32,19 @@ function signup() {
 }
 
 function login() {
+    var messages = document.getElementById('login-errors'); 
     var email = document.getElementById('loginEmail').value;
     var password = document.getElementById('loginPassword').value;
     if (email.length < 4) {
-        alert('Please enter an email address.');
+        var li = document.createElement('li');
+        li.innerText = "Please enter a proper email address.";
+        messages.appendChild(li);
         return;
     }
     if (password.length < 6) {
-        alert('Please enter a password.');
+        var li = document.createElement('li');
+        li.innerText = "Please enter a proper password.";
+        messages.appendChild(li);
         return;
     }
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -57,16 +62,25 @@ function login() {
                     window.location.href = '/';
                 });
         } else {
-            alert("Please verify your email");
+            messages.innerHTML = "";
+            var li = document.createElement('li');
+            li.innerText = "Please verify your email";
+            messages.appendChild(li);
         }
     })
     .catch(function(error) {
         var errorCode = error.code;
         var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
-            alert('Wrong password.');
+            messages.innerHTML = "";
+            var li = document.createElement('li');
+            li.innerText = "Incorrect email or password.";
+            messages.appendChild(li);
         } else {
-            alert(errorMessage);
+            messages.innerHTML = "";
+            var li = document.createElement('li');
+            li.innerText = errorMessage;
+            messages.appendChild(li);
         }
         console.log(error);
     });
@@ -79,14 +93,18 @@ function logout() {
 }
 
 function passwordReset() {
+    var messages = document.getElementById('login-errors'); 
     var email = document.getElementById('loginEmail').value;
     firebase.auth().sendPasswordResetEmail(email)
     .then(function() {
         alert("Email has been sent to reset password");
-        // window.location.href = '/';
+        // pop up box // not an error message // green check
     })
     .catch(function(error) {
-        alert(error.message);
+        messages.innerHTML = "";
+        var li = document.createElement('li');
+        li.innerText = "The address is not a verified email or is not associated with an account";
+        messages.appendChild(li);
         console.log(error);
     })
 }
