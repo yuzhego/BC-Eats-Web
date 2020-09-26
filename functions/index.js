@@ -74,9 +74,21 @@ app.get('/feed', (request, response) => {
     // }
 });
 
-app.get('/newpost', (request, response) => {
-    if(currentUser && currentUser.customClaims && currentUser.customClaims['provider']) {
-        response.render('newpost', { user : currentUser });
+app.get('/myposts', (request, response) => {
+    if(currentUser) {
+        if(currentUser.customClaims) {
+            const posts = database.ref('posts');
+            posts.equalTo(currentUser.uid, 'uid').orderByChild('until').on('value', function(snapshot) {
+                response.render('myposts', { user: currentUser, 
+                    provider: currentUser.customClaims['provider'], 
+                    posts: snapshot.val() });
+            }, function (errorObject) {
+                console.log("The read failed: " + errorObject.code);
+            });
+            
+        } else {
+            response.render('myposts', { user: currentUser, provider: false });
+        }
     } else {
         response.redirect('/');
     }
@@ -222,7 +234,7 @@ app.get('/editpost/:pid', (request, response) => {
     if(currentUser) {
         const post = database.ref('posts/' + request.params.pid);
         post.on('value', function(snapshot) {
-            response.render('editpost', { post: snapshot.val(), pid: request.params.pid });
+            response.render('editpost', { post: snapshot.val(), pid: request.params.pid, user: currentUser });
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
@@ -258,7 +270,42 @@ app.post('/verifyprovider', (request, response) => {
     if(currentUser) {
         auth.setCustomUserClaims(currentUser.uid, {provider: true}).then(() => {
             console.log("Provider set to true");
+            // reset currentUser with updated claims
+            auth.getUser(currentUser.uid)
+                .then(user => {
+                    console.log(user);
+                    currentUser = user;
+                    response.redirect('/myposts');
+                })
+                .catch(err => {
+                    console.log(err);
+                    response.sendStatus(400);        
+                });
         });
+    } else {
+        response.redirect('/login');
+    }
+})
+
+// testing utility
+app.post('/unverifyprovider', (request, response) => {
+    if(currentUser) {
+        auth.setCustomUserClaims(currentUser.uid, {provider: false}).then(() => {
+            console.log("Provider set to false");
+            // reset currentUser with updated claims
+            auth.getUser(currentUser.uid)
+                .then(user => {
+                    console.log(user);
+                    currentUser = user;
+                    response.redirect('/myposts');
+                })
+                .catch(err => {
+                    console.log(err);
+                    response.sendStatus(400);        
+                });;
+        });
+    } else {
+        response.redirect('/login');
     }
 })
 
