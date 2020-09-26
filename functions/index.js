@@ -16,6 +16,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const config = require('./serviceAcountKey.json');
 const { credential } = require('firebase-admin');
+const { user } = require('firebase-functions/lib/providers/auth');
 admin.initializeApp({
     credential: admin.credential.cert(config),
     databaseURL : "https://bc-eats-b0c89.firebaseio.com/"
@@ -74,7 +75,7 @@ app.get('/feed', (request, response) => {
 });
 
 app.get('/newpost', (request, response) => {
-    if(currentUser) {
+    if(currentUser && currentUser.customClaims && currentUser.customClaims['provider']) {
         response.render('newpost', { user : currentUser });
     } else {
         response.redirect('/');
@@ -165,6 +166,9 @@ app.post('/signup', (request, response) => {
         })
         .then(function(userRecord) {
             console.log('Successfully created new user:', userRecord.uid);
+            auth.setCustomUserClaims(userRecord.uid, {provider: false}).then(() => {
+                console.log("Provider set to false");
+            });
             auth.generateEmailVerificationLink(email)
             .then(function(link) {
                 // Send link through custom SMTP
@@ -175,6 +179,8 @@ app.post('/signup', (request, response) => {
             console.log(errors);
             console.log('Error creating new user:', error);
         });
+
+        
 
     } else {
 
@@ -245,6 +251,14 @@ app.post('/editpost', (request, response) => {
         response.redirect('/feed');
     } else {
         response.redirect('/login');
+    }
+})
+
+app.post('/verifyprovider', (request, response) => {
+    if(currentUser) {
+        auth.setCustomUserClaims(currentUser.uid, {provider: true}).then(() => {
+            console.log("Provider set to true");
+        });
     }
 })
 
