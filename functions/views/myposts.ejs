@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
         <link rel="stylesheet" href="styles/shared.css">
-        <link rel="stylesheet" href="styles/feed.css">
+        <link rel="stylesheet" href="styles/myposts.css">
         <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -62,46 +62,96 @@
                 <input type="submit" value="Submit">
             </form> -->
             <% if (!provider) { %>
-                <section class="middle-section">
-                    <div class="middle-section-body">
-                        <form action="/verifyprovider" method="post">
-                            <button type="submit">Verify</button>
-                        </form>
+                <div class="agreement-section">
+                    <div class="container">
+                        <div class="title-wrap">
+                            <h1 class="content-h1">
+                                BC Students and Employees Only
+                            </h1>
+                            <div class="subtitle">
+                                Don’t throw away leftover food! Agree to the terms and conditions to create a post! 
+                            </div>
+                        </div>
+                        <div class="policy-padding">
+                            <div class="policy-container">
+                                <h2 class="heading-2">
+                                    Policy Agreement
+                                </h2>
+                                <div class="policy">
+                                    <div class="policy-top">
+                                        <h1 class="heading-3">
+                                            By clicking agree and continue, I agree with：
+                                        </h1>
+                                        <div class="policy-detail">
+                                            I have read and agree to the policy agreement.
+                                        </div>
+                                    </div>
+                                    <div class="policy-body">
+                                        <ul>
+                                            <li>As an student/employee of Bellevue College, I volunteer to provide clean and safe food to BC students for free to eliminate food waste</li>
+                                            <li>To provide food to any BC student or employee who USES BC Eats</li>
+                                            <li>Be responsibility and friendly to everyone</li>
+                                        </ul>  
+                                    </div>
+                                    <div>
+                                        <form action="/verifyprovider" method="post" class="button-policy-container">
+                                            <button type="submit" class="button-policy">Agree and Continue to My Post Page</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                </section>
+                </div>
             <% } else { %>
             <section class="top-section">
                 <h2>My Posts</h2>
             </section>
             </section>
+                <div class="new-post">
+                    <div class="w-col w-col-3">
+                        <a href="/newpost" class="button-3 add post w-button">
+                            CREATE A NEW POST
+                        </a>
+                    </div>
+                </div>
                 <div id="feed">
-                    <% for(post in posts) { %>
-                        <div class="row">
-                            <div class="col post-img-div">
-                                <!-- <p>image : <%- posts[post].image %></p>  -->
-                                <img class="post-img" src="images/food-props.jpg" alt="food image">
+                    <% if(posts) { %>
+                        <% for(post in posts) { %>
+                            <div class="row">
+                                <div class="col post-img-div">
+                                    <!-- <p>image : <%- posts[post].image %></p>  -->
+                                    <img class="post-img" src="images/food-props.jpg" alt="food image">
+                                </div>
+                                <div class="col container post-info-div">
+                                    <h4><%- posts[post].title %></h4>
+                                    <p> <%- posts[post].location %></p>
+                                    <p> <%- posts[post].description %></p>
+                                    <% if(user && posts[post].uid == user.uid) { %>
+                                        <div id="<%- post %>">
+                                            <button id="delete">Delete</button>
+                                            <button id="edit">Edit</button>
+                                        </div>
+                                    <% } %>
+                                </div>
                             </div>
-                            <div class="col container post-info-div">
-                                <h4><%- posts[post].title %></h4>
-                                <p> <%- posts[post].location %></p>
-                                <p> <%- posts[post].description %></p>
-                                <% if(user && posts[post].uid == user.uid) { %>
-                                    <div id="<%- post %>">
-                                        <button id="delete">Delete</button>
-                                        <button id="edit">Edit</button>
-                                    </div>
-                                <% } %>
-                            </div>
+                        <% } %>
+                    <% } else { %>
+                        <div class="no-posts">
+                            <h4>You have no current posts</h4>
                         </div>
                     <% } %>
-                    <hr>
                 </div>
-                <div class="middle-section-body">
+                <!-- Testing utility to unverify a user as a provider -->
+                <!-- <div class="middle-section-body">
                     <form action="/unverifyprovider" method="post">
                         <button type="submit">Un-Verify</button>
                     </form>
-                </div>
+                </div> -->
             </section>
+            <% } %>
+            <hr>
             <section>
                 <h2 class="heading text-center">Download Our App</h2>
                 <div class="text-center">
@@ -118,7 +168,7 @@
                     <button > Coming soon...</button>
                 </div>
             </section>
-            <% } %>
+            
         </main>
         <script>
             var deleteButton = document.getElementById('delete');

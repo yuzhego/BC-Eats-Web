@@ -62,23 +62,31 @@ app.get('/', (request, response) => {
 });
 
 app.get('/feed', (request, response) => {
-    // if(currentUser) {
+    if(currentUser) {
         const posts = database.ref('posts');
         posts.orderByChild('until').on('value', function(snapshot) {
             response.render('feed', { posts: snapshot.val(), user: currentUser });
         }, function (errorObject) {
             console.log("The read failed: " + errorObject.code);
         });
-    // } else {
-    //     response.redirect('/');
-    // }
+    } else {
+        response.redirect('/');
+    }
+});
+
+app.get('/newpost', (request, response) => {
+    if(currentUser) {
+        response.render('newpost', { user : currentUser });
+    } else {
+        response.redirect('/');
+    }
 });
 
 app.get('/myposts', (request, response) => {
     if(currentUser) {
         if(currentUser.customClaims) {
             const posts = database.ref('posts');
-            posts.equalTo(currentUser.uid, 'uid').orderByChild('until').on('value', function(snapshot) {
+            posts.orderByChild('uid').equalTo(currentUser.uid).on('value', function(snapshot) {
                 response.render('myposts', { user: currentUser, 
                     provider: currentUser.customClaims['provider'], 
                     posts: snapshot.val() });
@@ -222,13 +230,13 @@ app.post('/signup', (request, response) => {
     }
 })
 
-app.get('/editpost', (request, response) => {
-    if(currentUser) {
-        response.render('editpost');
-    } else {
-        response.redirect('/login');
-    }
-});
+// app.get('/editpost', (request, response) => {
+//     if(currentUser) {
+//         response.render('editpost');
+//     } else {
+//         response.redirect('/');
+//     }
+// });
 
 app.get('/editpost/:pid', (request, response) => {
     if(currentUser) {
@@ -239,7 +247,7 @@ app.get('/editpost/:pid', (request, response) => {
             console.log("The read failed: " + errorObject.code);
         });
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 });
 
@@ -262,7 +270,7 @@ app.post('/editpost', (request, response) => {
         });
         response.redirect('/feed');
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 })
 
@@ -283,7 +291,7 @@ app.post('/verifyprovider', (request, response) => {
                 });
         });
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 })
 
@@ -305,7 +313,7 @@ app.post('/unverifyprovider', (request, response) => {
                 });;
         });
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 })
 
@@ -313,7 +321,7 @@ app.get('/loginoptions', (request, response) => {
     if(currentUser) {
         response.render('loginoptions');
     } else {
-        response.redirect('/login');
+        response.redirect('/');
     }
 });
 
