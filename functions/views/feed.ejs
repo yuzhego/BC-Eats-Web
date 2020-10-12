@@ -58,15 +58,14 @@
                     <% for(post in posts) { %>
                         <div class="row">
                             <div class="col post-img-div">
-                                <!-- <p>image : <%- posts[post].image %></p>  -->
                                 <img class="post-img" src="images/food-props.jpg" alt="food image">
                             </div>
                             <div class="col container post-info-div">
-                                <h4><%- posts[post].title %></h4>
-                                <p> <%- posts[post].location %></p>
+                                <h3><%- posts[post].title %></h3>
+                                <h5> <%- posts[post].location %></h5>
                                 <p> <%- posts[post].description %></p>
                                 <% if(user && posts[post].uid == user.uid) { %>
-                                    <div id="<%- post %>">
+                                    <div id="<%-post%>">
                                         <button id="delete">Delete</button>
                                         <button id="edit">Edit</button>
                                     </div>
